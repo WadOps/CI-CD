@@ -26,7 +26,7 @@ module.exports.routes = {
   'GET /tests' : 'TestController.get',
   'POST  /generateurl' : 'CandidateController.generate',
   'GET /candidates' : 'CandidateController.getCandidates',
-  'GET /:token' : 'TestController.redirect',
+  // 'GET /:token' : 'TestController.redirect',
   'GET /gettest/:token' : 'TestController.getOneWithToken'
 
   /***************************************************************************

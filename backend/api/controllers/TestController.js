@@ -66,11 +66,9 @@ module.exports = {
 
     getOneWithToken(req,res) {
         var jwt = require('jsonwebtoken')
-        console.log(req.params.token)
         var token = req.params.token
         
         var decoded = jwt.decode(token);
-        console.log(decoded.id)
 
         Test.findOne({id: decoded.id}).populateAll().then((test) => {
             var prmses = []
