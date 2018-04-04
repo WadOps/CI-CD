@@ -1,10 +1,7 @@
 <template>
-  <v-layout column>
-    <span class="test-name">
-      <!-- <strong>{{currentTest.testName.name}}</strong> -->
-    </span>
+  <v-layout fluid column>
 
-    <v-flex xs12 justify-center>
+    <v-flex justify-center>
       <transition name="slide-y-transition" appear>
         <!-- start button -->
         <div class="text-xs-center" v-if="btnStartGame">

@@ -2,13 +2,15 @@
   <v-card>
     <v-card-title> Question № &nbsp;{{questNumber}}</v-card-title>
     <v-progress-linear v-model="computedStatusBar"></v-progress-linear>
-    <p class="quest">{{askQuestion}}</p>
+    <v-card-text><p v-html="askQuestion"></p></v-card-text>
+
 
     <v-radio-group v-model="check" :mandatory="false" v-for="(elem, index) in quiz.qsts[this.n].answers"
       :key="elem.key"
       :index='index'
-      class="customAnswers">
-        <v-radio :label='elem.description' :value='elem' @click.native='getAnswer'></v-radio>
+    >
+        <v-divider></v-divider>
+        <v-radio :label='elem.desc' :value='elem' @click.native='getAnswer'></v-radio>
     </v-radio-group>
 
     <span class='pa-3' v-show="seenNextQuestion">{{answerFeedback}}</span>
@@ -33,6 +35,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
+var marked = require('marked')
 
 export default {
   name: 'test-questions',
@@ -66,7 +69,7 @@ export default {
     askIt () {
       // asking questions
       this.seenNextQuestion = false
-      this.askQuestion = this.quiz.qsts[this.n].description
+      this.askQuestion = marked(this.quiz.qsts[this.n].desc)
     },
     sendAnswer () {
       //  the organization of the check for the correctness of the answer + the output of the next question button
@@ -84,9 +87,9 @@ export default {
         this.$store.dispatch('endTest')
       }
     },
-    getAnswer () {  // получаем ответ
+    getAnswer () {  
       this.takeAnswer = this.check
-      this.answerButtonDisableStatus = false // кнопка ответа теперь активна
+      this.answerButtonDisableStatus = false 
     },
     nextQuestion () {
       this.answerButtonDisableStatus = true
@@ -106,18 +109,9 @@ export default {
 <style lang='stylus'>
 @import '../stylus/main'
 
-.quest
-  font-family: $fontType
-  font-weight: 200
-  font-size: $fontSize + 9vh
-  padding: 10px 10px 0 10px
 
   @media screen and (max-width: 440px)
     font-size: $fontSize + 2px
-
-.img-resp
-  width: 360px
-  height:390px
 
   @media screen and (max-width: 440px)
     width: 200px

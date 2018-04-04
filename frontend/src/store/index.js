@@ -32,7 +32,8 @@ export const store = new Vuex.Store({
   },
   actions: {
     playTest: async ({commit, state}) => {
-      await Api.customApi("get", "/gettest/5abbaff1308cb05c26032079").then(response => {
+      await Api.customApi("get", "/gettest/eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJpZCI6IjVhYzUxNmRhNGIwZjA4MmZmYzI4NmU1ZSIsImlhdCI6MTUyMjg2NjM3M30.").then(response => {
+        console.log(response.data.data)
         state.quiz  = response.data.data;        
       })
       state.dataLength = state.quiz.qsts.length

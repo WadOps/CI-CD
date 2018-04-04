@@ -47,7 +47,7 @@
       <!-- Place where we choose a test -->
       <transition name="fade" appear mode="out-in">
         <!-- <test-header v-if='showTestHeader' /> -->
-        <test-tree />
+        <test-tree/>
       </transition>
       
     </v-content>
@@ -99,7 +99,7 @@ export default {
 /* Global app styles */
 .app 
   max-width: 1400px
-  margin: 0 auto 40px
+  margin: 40px 300px 40px
   font-size: $fontSize
 
   @media screen and (max-width: 440px)
