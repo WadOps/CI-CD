@@ -72,7 +72,6 @@ export default {
       this.askQuestion = marked(this.quiz.qsts[this.n].desc)
     },
     sendAnswer () {
-      //  the organization of the check for the correctness of the answer + the output of the next question button
       this.getAnswer()
       this.seenNextQuestion = true
       this.inputDisableStatus = false

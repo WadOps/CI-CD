@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import Api from "../services/api";
+import Api from "../services/api"
+import router from '@/router'
 
 Vue.use(Vuex)
 
@@ -11,12 +12,16 @@ export const store = new Vuex.Store({
     dataLength: null, // number of questions
     count: 0, // correct answer counter
     testComponent: null,
-    resultMark: null
+    resultMark: null,
+    token:''
   },
   getters: {
     quiz: state => state.quiz
   },
   mutations: {
+    defineToken (state, token) {
+      state.token = token
+    },
     changeComponentStatus (state, component) {
       state.testComponent = component
     },
@@ -28,8 +33,8 @@ export const store = new Vuex.Store({
   },
   actions: {
     playTest: async ({commit, state}) => {
-      await Api.customApi("get", "/gettest/eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJpZCI6IjVhYzUxNmRhNGIwZjA4MmZmYzI4NmU1ZSIsImlhdCI6MTUyMjg2NjM3M30.").then(response => {
-        // console.log(response.data.data)
+      console.log(this.$route)
+      await Api.customApi("get", "/gettest/"+state.token).then(response => {
         state.quiz  = response.data.data;        
       })
       state.dataLength = state.quiz.qsts.length

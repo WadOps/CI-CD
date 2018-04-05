@@ -44,9 +44,8 @@
     </v-toolbar>
 
     <v-content class="app">
-      <!-- Place where we choose a test -->
+
       <transition name="fade" appear mode="out-in">
-        <!-- <test-header v-if='showTestHeader' /> -->
         <test-tree/>
       </transition>
       
@@ -74,8 +73,7 @@ export default {
   },
   data: () => ({
     drawer: false,
-    menuItems: [
-    ],
+    menuItems: [],
     title: 'Your first step to Hidden Founders'
   }),
   methods: {
@@ -85,6 +83,10 @@ export default {
     goTo (par) {
       window.open(par)
     }
+  },
+  mounted() {
+    console.log(this.$route.params)
+    this.$store.commit('defineToken', this.$route.params.token)
   }
 }
 </script>
@@ -92,11 +94,9 @@ export default {
 <style lang="stylus">
 @import './stylus/main'
 
-/* html not app styles */
 [v-cloak] 
   display: none
 
-/* Global app styles */
 .app 
   max-width: 1400px
   margin: 40px 300px 40px
