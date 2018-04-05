@@ -33,7 +33,6 @@ export const store = new Vuex.Store({
   },
   actions: {
     playTest: async ({commit, state}) => {
-      console.log(this.$route)
       await Api.customApi("get", "/gettest/"+state.token).then(response => {
         state.quiz  = response.data.data;        
       })
@@ -42,16 +41,11 @@ export const store = new Vuex.Store({
       await commit('runTest')
     },
     endTest: async ({commit, state}) => {
-      Api.customApi("post", "/endtest",{
-        score: state.count
-      }).then(response => {
-        
-               
+      await Api.customApiParam("post", "/endtest",{
+        score: state.count,
+        token: state.token
       })
       state.testComponent = 'result'
-      // eslint-disable-next-line
-      let results = await commit('showResults')
-      results = null
     }
   }
 })

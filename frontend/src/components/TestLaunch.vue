@@ -85,7 +85,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$route.params)
     this.$store.commit('defineToken', this.$route.params.token)
   }
 }
