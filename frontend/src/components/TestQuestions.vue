@@ -1,15 +1,15 @@
 <template>
   <v-card>
-    <v-card-title> Question № &nbsp;{{questNumber}}</v-card-title>
+    <v-card-title> Question № {{questNumber}}</v-card-title>
     <v-progress-linear v-model="computedStatusBar"></v-progress-linear>
     <v-card-text><p v-html="askQuestion"></p></v-card-text>
 
-
+    <v-divider></v-divider>
     <v-radio-group v-model="check" :mandatory="false" v-for="(elem, index) in quiz.qsts[this.n].answers"
       :key="elem.key"
       :index='index'
+      class="px-3"
     >
-        <v-divider></v-divider>
         <v-radio :label='elem.desc' :value='elem' @click.native='getAnswer'></v-radio>
     </v-radio-group>
 
@@ -21,13 +21,13 @@
         :disabled='answerButtonDisableStatus'
         @click.prevent="sendAnswer"
         key='answer'
-        class="ml-3"
+        class="ml-3 px-3 mb-3"
       >Reply</v-btn>
       <v-btn v-else
         color='green'
         @click="nextQuestion"
         key='next_question'
-        class="ml-3"
+        class="ml-3 px-3 mb-3"
       >Next question</v-btn>
     </transition>
   </v-card>
@@ -44,7 +44,7 @@ export default {
     seenNextQuestion: false, // visibility of the "Next question" button
     n: 0, // index of the current issue
     src: null,
-    answerFeedback: 'Answer accepted',
+    answerFeedback: 'Ready for the next question',
     statusBar: Number,
     check: {}, // choice of answer
     answerButtonDisableStatus: true, // the answer button is turned off if no option is selected
@@ -83,7 +83,7 @@ export default {
         this.$store.commit('addCount')
       }
       // check for the last question
-      if (this.n === this.statusBar /*this.quiz.qsts.length - 1*/) {
+      if (this.n === this.statusBar) {
         this.$store.dispatch('endTest')
       }
     },
@@ -117,11 +117,7 @@ export default {
     width: 200px
     height: 210px
 
-.customAnswers
-  padding: 12px
-  border-style: ridge
-  border-width: 1px
-  border-color: $testColor
+.radio
   opacity: $testOpacity - 0.07
 
   &:hover

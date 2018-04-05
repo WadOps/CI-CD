@@ -8,8 +8,8 @@
           <v-btn
             color='blue'
             dark
-            @click.prevent='checkTestStatus(testStatus)'
-            @click.native="startTest()"
+            @click.prevent.native='checkTestStatus(testStatus)'
+            
           >{{btnRunTestStatus}}
           </v-btn>
         </div>
@@ -40,10 +40,6 @@ export default {
   }),
   computed: {
     btnStatus () {
-      if (this.testComponent === 'result') {
-        this.btnStartGame = true
-        this.btnRunTestStatus = 'To main'
-      }
       return this.btnRunTestStatus
     },
     ...mapState(['testComponent', 'testStatus'])
@@ -53,20 +49,16 @@ export default {
       if the test is not started, then we begin,
       If we return from Result.vue, then proceed to selecting the test for TestHeader.vue
     */
-    startTest (index, testName) {
-      this.$store.dispatch('playTest')
-    },
     checkTestStatus (status) {
       if (status === true) {
         this.btnStartGame = false
         this.$store.commit('changeComponentStatus', 'test-questions')
-      } else {
-        this.$store.state.showTestHeader = true
       }
-    },
-    Result () {
-      this.btnRunTestStatus = 'To main'
+
     }
+  },
+  mounted() {
+    this.$store.dispatch('playTest')
   },
   beforeDestroy () {
     this.btnStartGame = null

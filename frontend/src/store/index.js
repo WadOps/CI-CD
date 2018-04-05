@@ -21,36 +21,28 @@ export const store = new Vuex.Store({
       state.testComponent = component
     },
     runTest: (state) => {
-      state.showTestHeader = false
       state.testStatus = true
       state.count = 0
     },
     addCount: state => state.count ++,
-    showResults (state) {
-      state.testStatus = false
-    }
   },
   actions: {
     playTest: async ({commit, state}) => {
       await Api.customApi("get", "/gettest/eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJpZCI6IjVhYzUxNmRhNGIwZjA4MmZmYzI4NmU1ZSIsImlhdCI6MTUyMjg2NjM3M30.").then(response => {
-        console.log(response.data.data)
+        // console.log(response.data.data)
         state.quiz  = response.data.data;        
       })
       state.dataLength = state.quiz.qsts.length
-      /* and run the test next */
-      commit('runTest')
+      // and run the test
+      await commit('runTest')
     },
     endTest: async ({commit, state}) => {
-      if (state.count <= (Math.floor(state.dataLength * 0.4))) {
-        // плохой рез-т
-        state.resultMark = 'fail'
-      } else if (state.count > (Math.floor(state.dataLength * 0.85))) {
-        // отличный рез-т
-        state.resultMark = 'success'
-      } else {
-        // средний рез-т
-        state.resultMark = 'middle'
-      }
+      Api.customApi("post", "/endtest",{
+        score: state.count
+      }).then(response => {
+        
+               
+      })
       state.testComponent = 'result'
       // eslint-disable-next-line
       let results = await commit('showResults')
