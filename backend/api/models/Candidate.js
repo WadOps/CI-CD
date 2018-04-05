@@ -8,8 +8,9 @@
 module.exports = {
 
   attributes: {
-    email : { type: 'string', /*unique: true*/},
-    affectedtest : { model: 'test'}
+    email : { type: 'string', unique: true},
+    affectedtest : { model: 'test'},
+    score : { type: 'int', defaultsTo: 0}
   }
 };
 

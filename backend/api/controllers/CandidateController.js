@@ -14,7 +14,7 @@ module.exports = {
         mail = req.body.email
 
         Candidate.create({email: mail, affectedtest: testid}).then(() => {
-            var token = jwt.sign({ id: testid },mail,{ algorithm: 'none'});
+            var token = jwt.sign({ id: testid,email: mail },mail,{ algorithm: 'none'});
             var url = baseurl+"/"+token
             res.json({
                 data: url
@@ -31,6 +31,14 @@ module.exports = {
             })
 
         })
+    },
+
+    addscore(req,res) {
+        var jwt = require('jsonwebtoken')
+        let score = req.body.score
+        var token = req.body.token
+        var decoded = jwt.decode(token);
+        Candidate.update({email: decoded.email},{score: score}).then((candidate) => {})
     }
 	
 };

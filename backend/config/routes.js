@@ -24,10 +24,12 @@ module.exports.routes = {
 
   'POST   /tests' : 'TestController.create',
   'GET /tests' : 'TestController.get',
+  // 'GET /:token' : 'TestController.redirect',
+  'GET /gettest/:token' : 'TestController.getOneWithToken',
   'POST  /generateurl' : 'CandidateController.generate',
   'GET /candidates' : 'CandidateController.getCandidates',
-  // 'GET /:token' : 'TestController.redirect',
-  'GET /gettest/:token' : 'TestController.getOneWithToken'
+  'POST /endtest' : 'CandidateController.addscore'
+  
 
   /***************************************************************************
   *                                                                          *
