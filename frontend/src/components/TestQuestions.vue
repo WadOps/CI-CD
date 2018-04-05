@@ -76,7 +76,6 @@ export default {
       this.seenNextQuestion = true
       this.inputDisableStatus = false
       this.check = ''
-      console.log(this.takeAnswer.istrue)
       // compare with the correct answer
       if (this.takeAnswer.istrue) {
         this.$store.commit('addCount')

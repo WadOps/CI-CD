@@ -2,7 +2,7 @@
   <img
     id="scrollup"
     alt="Scroll up"
-    src="../static/up.svg"
+    src="../../static/up.svg"
     :class="scrollUpClass"
     @mouseover='onMouseOver'
     @mouseout='onMouseOut'
