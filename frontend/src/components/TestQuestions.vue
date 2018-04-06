@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title> Question № {{questNumber}}</v-card-title>
+    <v-card-title> Question №{{questNumber}}</v-card-title>
     <v-progress-linear v-model="computedStatusBar"></v-progress-linear>
     <v-card-text><p v-html="askQuestion"></p></v-card-text>
 
@@ -40,7 +40,7 @@ var marked = require('marked')
 export default {
   name: 'test-questions',
   data: () => ({
-    askQuestion: null, // the question itself
+    askQuestion: null, // the question
     seenNextQuestion: false, // visibility of the "Next question" button
     n: 0, // index of the current issue
     src: null,
@@ -81,6 +81,7 @@ export default {
         this.$store.commit('addCount')
       }
       // check for the last question
+      console.log(this.n,this.statusBar)
       if (this.n === this.statusBar) {
         this.$store.dispatch('endTest')
       }

@@ -41,11 +41,13 @@ export const store = new Vuex.Store({
       await commit('runTest')
     },
     endTest: async ({commit, state}) => {
+      state.testComponent = 'result'
+      state.testStatus = false
       await Api.customApiParam("post", "/endtest",{
         score: state.count,
         token: state.token
       })
-      state.testComponent = 'result'
+        
     }
   }
 })
