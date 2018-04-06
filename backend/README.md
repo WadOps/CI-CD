@@ -1,3 +1,9 @@
-# backend
+### BackEnd
 
-a [Sails](http://sailsjs.org) application
+###### install dependencies
+npm install
+
+###### run the server
+sails lift
+
+
