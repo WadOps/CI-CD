@@ -9,7 +9,7 @@ module.exports = {
 
     generate(req,res) {
         var jwt = require('jsonwebtoken')
-        baseurl = "http:/localhost:8081"
+        baseurl = "localhost:8081"
         testid = req.body.id
         mail = req.body.email
 
