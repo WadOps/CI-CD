@@ -1,9 +1,11 @@
 ### BackEnd
 
-###### install dependencies
-npm install
+Install dependencies
 
-###### run the server
-sails lift
+`npm install`
+
+Run the server
+
+`sails lift`
 
 

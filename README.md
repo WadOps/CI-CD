@@ -1,8 +1,8 @@
 # Quiz App
 
-Quiz app is an application that manage quizzes for Hiddene Founders
+Quiz app is an application that manage quizzes for Hidden Founders
 
-## test the app
+## Getting started
 
 To test the app, there is two ways :
 
