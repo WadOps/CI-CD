@@ -2,7 +2,7 @@
 
 Quiz app is an application that manage quizzes for Hiddene Founders
 
-## test the app
+## getting started
 
 To test the app, there is two ways :
 
