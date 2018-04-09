@@ -72,6 +72,7 @@ export default {
       this.askQuestion = marked(this.quiz.qsts[this.n].desc)
     },
     sendAnswer () {
+      this.$store.commit('addqst', {idqst : this.quiz.qsts[this.n].id, idanswer : this.check.id})
       this.getAnswer()
       this.seenNextQuestion = true
       this.inputDisableStatus = false

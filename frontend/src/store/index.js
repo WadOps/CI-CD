@@ -13,12 +13,16 @@ export const store = new Vuex.Store({
     count: 0, // correct answer counter
     testComponent: null,
     resultMark: null,
-    token:''
+    token:'',
+    qsts : []
   },
   getters: {
     quiz: state => state.quiz
   },
   mutations: {
+    addqst (state, qst_answer) {
+      state.qsts.push(qst_answer)
+    },
     defineToken (state, token) {
       state.token = token
     },
@@ -47,7 +51,8 @@ export const store = new Vuex.Store({
         score: state.count,
         token: state.token
       })
-        
+      state.qsts.token=state.token
+      await Api.customApiParam("post", "/candidateanswers", state.qsts)       
     }
   }
 })
