@@ -85,6 +85,7 @@ module.exports = {
             })
         })
         .catch((err) => {
+            console.log("test not found")
             return res.json({
                 success: false,
                 error: "Test not found",err

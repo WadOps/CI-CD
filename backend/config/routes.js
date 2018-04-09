@@ -28,7 +28,8 @@ module.exports.routes = {
   'GET /gettest/:token' : 'TestController.getOneWithToken',
   'POST  /generateurl' : 'CandidateController.generate',
   'GET /candidates' : 'CandidateController.getCandidates',
-  'POST /endtest' : 'CandidateController.addscore'
+  'POST /endtest' : 'CandidateController.addscore',
+  'POST /candidateanswers' : 'CandidateController.addCandidateAnswer'
   
 
   /***************************************************************************

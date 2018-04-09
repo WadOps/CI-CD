@@ -35,10 +35,31 @@ module.exports = {
 
     addscore(req,res) {
         var jwt = require('jsonwebtoken')
-        let score = req.body.score
+        var score = req.body.score
         var token = req.body.token
         var decoded = jwt.decode(token);
         Candidate.update({email: decoded.email},{score: score}).then((candidate) => {})
+    },
+
+    addCandidateAnswer(req,res) {
+        var jwt = require('jsonwebtoken')
+        var token = req.body.token
+        var decoded = jwt.decode(token);
+        Candidate.findOne({email: decoded.email}).then((candidate) => {
+            Question.findOne({id : req.body.idqst}).then(qst =>{
+                Question.create({test_id : null, desc : qst.desc, candidate_id : candidate.id}).then(question => {
+                    Answer.findOne({id : req.body.idanswer}).then(asw => {
+                        Answer.create({qst_id: question.id, desc: asw.desc, istrue: asw.istrue}).catch((err) => {
+                            Question.destroy({id: question.id})
+                            return res.json({
+                                success: false,
+                                error: "error: ",err
+                            });
+                        })
+                    })
+                })
+            })
+        })
     }
 	
 };
