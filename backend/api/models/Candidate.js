@@ -10,7 +10,8 @@ module.exports = {
   attributes: {
     email : { type: 'string', unique: true},
     affectedtest : { model: 'test'},
-    score : { type: 'int', defaultsTo: 0}
+    score : { type: 'int', defaultsTo: 0},
+    qsts_answered : { collection: 'question', via: 'candidate_id' }
   }
 };
 
