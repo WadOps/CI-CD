@@ -10,7 +10,7 @@
       :index='index'
       class="px-3"
     >
-        <v-radio :label='elem.desc' :value='elem' @click.native='getAnswer'></v-radio>
+        <v-radio :label='elem.desc' :value='elem' @click.native='getAnswer' :disabled="!inputDisableStatus"></v-radio>
     </v-radio-group>
 
     <span class='pa-3' v-show="seenNextQuestion">{{answerFeedback}}</span>
@@ -82,7 +82,6 @@ export default {
         this.$store.commit('addCount')
       }
       // check for the last question
-      console.log(this.n,this.statusBar)
       if (this.n === this.statusBar) {
         this.$store.dispatch('endTest')
       }
@@ -118,7 +117,6 @@ export default {
     height: 210px
 
 .radio
-  opacity: $testOpacity - 0.07
 
   &:hover
     opacity: 1

@@ -10,7 +10,8 @@ module.exports = {
   attributes: {
     qst_id: { model: 'question', required: true},
     desc : { type: 'string', required: true},
-    istrue : { type: 'boolean', defaultsTo: false}
+    istrue : { type: 'boolean', defaultsTo: false},
+    chosenby_candidates : { collection: 'candidate', via: 'answers'}
   }
 };
 

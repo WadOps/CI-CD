@@ -21,6 +21,7 @@ export const store = new Vuex.Store({
   },
   mutations: {
     addqst (state, qst_answer) {
+      qst_answer.token=state.token
       state.qsts.push(qst_answer)
     },
     defineToken (state, token) {
@@ -47,11 +48,10 @@ export const store = new Vuex.Store({
     endTest: async ({commit, state}) => {
       state.testComponent = 'result'
       state.testStatus = false
-      await Api.customApiParam("post", "/endtest",{
+      Api.customApiParam("post", "/endtest",{
         score: state.count,
         token: state.token
       })
-      state.qsts.token=state.token
       await Api.customApiParam("post", "/candidateanswers", state.qsts)       
     }
   }

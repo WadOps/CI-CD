@@ -23,7 +23,7 @@ module.exports = {
     },
 
     getCandidates(req,res) {
-        Candidate.find().then((candidates) => {
+        Candidate.find().populateAll().then((candidates) => {
             
             res.json({
                 success:true,
@@ -43,23 +43,25 @@ module.exports = {
 
     addCandidateAnswer(req,res) {
         var jwt = require('jsonwebtoken')
-        var token = req.body.token
-        var decoded = jwt.decode(token);
-        Candidate.findOne({email: decoded.email}).then((candidate) => {
-            Question.findOne({id : req.body.idqst}).then(qst =>{
-                Question.create({test_id : null, desc : qst.desc, candidate_id : candidate.id}).then(question => {
-                    Answer.findOne({id : req.body.idanswer}).then(asw => {
-                        Answer.create({qst_id: question.id, desc: asw.desc, istrue: asw.istrue}).catch((err) => {
-                            Question.destroy({id: question.id})
+        for(let i in req.body) {
+            var token = req.body[i].token
+            var decoded = jwt.decode(token);
+            Candidate.findOne({email: decoded.email}).then((candidate) => {
+                        Answer.findOne({id : req.body[i].idanswer}).then(asw => {
+                            asw.chosenby_candidates.add(candidate.id)
+                            asw.save()
+                            candidate.answers.add(asw.id)
+                            candidate.save()
+                        }).catch((err) => {
+                            candidate.answers.remove(asw.id)
+                            candidate.save()
                             return res.json({
                                 success: false,
                                 error: "error: ",err
                             });
                         })
-                    })
-                })
             })
-        })
+        }
     }
 	
 };
