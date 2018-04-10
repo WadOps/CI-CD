@@ -11,7 +11,7 @@ module.exports = {
     email : { type: 'string', unique: true},
     affectedtest : { model: 'test'},
     score : { type: 'int', defaultsTo: 0},
-    qsts_answered : { collection: 'question', via: 'candidate_id' }
+    answers : { collection: 'answer', via: 'chosenby_candidates'}
   }
 };
 

@@ -8,8 +8,8 @@
 module.exports = {
 
     create(req,res) { 
-        let data = req.body
-        Test.create({}).then((test) => {
+        let data = req.body.questions
+        Test.create({difficulty: req.body.diff, time: req.body.timelimit, techstack: req.body.techstack}).then((test) => {
             for(let i in req.body) {
                 Question.create({test_id: test.id, desc: data[i].desc}).then((question) => {
                     for(let j in data[i].answers) {
