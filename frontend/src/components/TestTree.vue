@@ -50,6 +50,7 @@ export default {
       If we return from Result.vue, then proceed to selecting the test for TestHeader.vue
     */
     checkTestStatus (status) {
+      this.$store.commit('setstarttime')
       if (status === true) {
         this.btnStartGame = false
         this.$store.commit('changeComponentStatus', 'test-questions')
