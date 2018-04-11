@@ -11,6 +11,8 @@ module.exports = {
     test_id : { model: 'test', required: true},
     desc : { type:'string', required: true},
     answers : { collection: 'answer', via: 'qst_id'},
+    passedtests : { colection: 'passedTest', via: 'qsts'},
+    
   }
 };
 

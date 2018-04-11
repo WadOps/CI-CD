@@ -29,7 +29,8 @@ module.exports.routes = {
   'POST  /generateurl' : 'CandidateController.generate',
   'GET /candidates' : 'CandidateController.getCandidates',
   'POST /endtest' : 'CandidateController.addscore',
-  'POST /candidateanswers' : 'CandidateController.addCandidateAnswer'
+  'POST /candidateanswers' : 'CandidateController.addCandidateAnswer',
+  'GET /passedtests' : 'PassedTestController.getPassedTest',
   
 
   /***************************************************************************
