@@ -45,8 +45,10 @@ module.exports = {
 
     async addCandidateAnswer(req,res) {
         var jwt = require('jsonwebtoken')
+        var moment = require('moment')
         var qsts = []
         var token = req.body[0].token
+        var time = moment(req.body[0].startingtime).format()
         var decoded = jwt.decode(token)
         for(let i in req.body) {
             var duo = []
@@ -65,7 +67,7 @@ module.exports = {
         }
         Candidate.findOne({email: decoded.email}).then((candidate) => {
             Test.findOne({id: decoded.id}).then((test) => {
-                PassedTest.create({test: test, candidate: candidate, qsts: qsts}).catch(err => {
+                PassedTest.create({test: test, candidate: candidate, qsts: qsts, starttime: time}).catch(err => {
                     return res.json({
                         success: false,
                         error: "error in Passed Test creation",err

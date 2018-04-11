@@ -14,13 +14,18 @@ export const store = new Vuex.Store({
     testComponent: null,
     resultMark: null,
     token:'',
-    qsts : []
+    qsts : [],
+    starttime : null
   },
   getters: {
     quiz: state => state.quiz
   },
   mutations: {
+    setstarttime (state) {
+      state.starttime = Date.now()
+    },
     addqst (state, qst_answer) {
+      qst_answer.startingtime=state.starttime
       qst_answer.token=state.token
       state.qsts.push(qst_answer)
     },
