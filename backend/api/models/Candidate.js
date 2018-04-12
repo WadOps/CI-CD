@@ -10,7 +10,6 @@ module.exports = {
   attributes: {
     email : { type: 'string', unique: true},
     affectedtest : { model: 'test'},
-    // answers : { collection: 'answer', via: 'chosenby_candidates'}
     Passedtests: { collection: 'passedTest', via: 'candidate'}
   }
 };

@@ -47,7 +47,6 @@ module.exports = {
         var decoded = jwt.decode(token);
         Candidate.findOne({email: decoded.email}).then((candidate) => {
             PassedTest.findOne({test: decoded.id, candidate: candidate.id}).then(passedtest =>{
-                console.log(passedtest)
                 res.json({
                     success: true,
                     data: passedtest
