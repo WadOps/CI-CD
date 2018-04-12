@@ -13,6 +13,7 @@ export const store = new Vuex.Store({
     count: 0, // correct answer counter
     testComponent: null,
     resultMark: null,
+    passedTestId: '',
     token:'',
     qsts : [],
     starttime : null
@@ -25,8 +26,6 @@ export const store = new Vuex.Store({
       state.starttime = Date.now()
     },
     addqst (state, qst_answer) {
-      qst_answer.startingtime=state.starttime
-      qst_answer.token=state.token
       state.qsts.push(qst_answer)
     },
     defineToken (state, token) {
@@ -42,6 +41,12 @@ export const store = new Vuex.Store({
     addCount: state => state.count ++,
   },
   actions: {
+    beginTest: async ({commit, state}) => {
+      await Api.customApiParam("post", "/createpassed",{
+        starttime: state.starttime,
+        token: state.token
+    }).then(response => { state.passedTestId = response.data.data })
+    },
     playTest: async ({commit, state}) => {
       await Api.customApi("get", "/gettest/"+state.token).then(response => {
         state.quiz  = response.data.data;        
@@ -53,11 +58,11 @@ export const store = new Vuex.Store({
     endTest: async ({commit, state}) => {
       state.testComponent = 'result'
       state.testStatus = false
-      Api.customApiParam("post", "/endtest",{
+      await Api.customApiParam("post", "/candidateanswers", {
+        id: state.passedTestId,
         score: state.count,
-        token: state.token
-      })
-      await Api.customApiParam("post", "/candidateanswers", state.qsts)       
+        qsts: state.qsts
+      })       
     }
   }
 })

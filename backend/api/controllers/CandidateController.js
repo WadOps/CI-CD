@@ -44,20 +44,15 @@ module.exports = {
     },
 
     async addCandidateAnswer(req,res) {
-        var jwt = require('jsonwebtoken')
-        var moment = require('moment')
         var qsts = []
-        var token = req.body[0].token
-        var time = moment(req.body[0].startingtime).format()
-        var decoded = jwt.decode(token)
-        for(let i in req.body) {
+        for(let i in req.body.qsts) {
             var duo = []
             var prmses =[]
-            var prms = await Question.findOne({id : req.body[i].idqst}).then(qst => {
+            var prms = await Question.findOne({id : req.body.qsts[i].idqst}).then(qst => {
                 duo.push(qst)
             })
             prmses.push(prms)
-            var prms = await Answer.findOne({id : req.body[i].idanswer}).then(asw => {
+            var prms = await Answer.findOne({id : req.body.qsts[i].idanswer}).then(asw => {
                 duo.push(asw)
             })
             prmses.push(prms)
@@ -65,32 +60,12 @@ module.exports = {
                 qsts.push(duo)
             })
         }
-        Candidate.findOne({email: decoded.email}).then((candidate) => {
-            Test.findOne({id: decoded.id}).then((test) => {
-                PassedTest.create({test: test, candidate: candidate, qsts: qsts, starttime: time}).catch(err => {
-                    return res.json({
-                        success: false,
-                        error: "error in Passed Test creation",err
-                    });
-                })
-            })
+        PassedTest.update({id: req.body.id},{score: req.body.score, qsts: qsts}).then((pt) => {}).catch(err => {
+            return res.json({
+                success: false,
+                error: "error in Passed Test save",err
+            });
         })
-            // Candidate.findOne({email: decoded.email}).then((candidate) => {
-            //             Answer.findOne({id : req.body[i].idanswer}).then(asw => {
-            //                 asw.chosenby_candidates.add(candidate.id)
-            //                 asw.save()
-            //                 candidate.answers.add(asw.id)
-            //                 candidate.save()
-            //             }).catch((err) => {
-            //                 candidate.answers.remove(asw.id)
-            //                 candidate.save()
-            //                 return res.json({
-            //                     success: false,
-            //                     error: "error: ",err
-            //                 });
-            //             })
-            // })
-    
     }
 	
 };

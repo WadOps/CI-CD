@@ -42,6 +42,8 @@
 
     <v-content class="app">
 
+      <!-- <Count /> -->
+
       <transition name="fade" appear mode="out-in">
         <test-tree/>
       </transition>
@@ -60,11 +62,13 @@
 <script>
 import { mapState } from 'vuex'
 import ScrollUp from './ScrollUp'
+import Count from './Countdown'
 const TestTree = () => import('./TestTree.vue')
 
 export default {
   name: 'app',
   components: {
+    Count,
     TestTree,
     ScrollUp
   },

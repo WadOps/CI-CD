@@ -11,8 +11,9 @@ module.exports = {
 
     test : { model: 'test'},
     candidate : { model: 'candidate', unique: true},
-    qsts : { type: 'array', required: true},
-    starttime : {type: 'string', required: true}
+    starttime : {type: 'string', required: true},
+    score : { type: 'int', defaultsTo: 0},
+    qsts : { type: 'array'}
 
   },
 

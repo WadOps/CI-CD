@@ -15,6 +15,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "marked": "^0.3.19",
+    "moment": "^2.22.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "vue": "^2.5.2",

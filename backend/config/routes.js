@@ -22,15 +22,16 @@
 
 module.exports.routes = {
 
-  'POST   /tests' : 'TestController.create',
+  'POST /tests' : 'TestController.create',
   'GET /tests' : 'TestController.get',
-  // 'GET /:token' : 'TestController.redirect',
   'GET /gettest/:token' : 'TestController.getOneWithToken',
   'POST  /generateurl' : 'CandidateController.generate',
   'GET /candidates' : 'CandidateController.getCandidates',
   'POST /endtest' : 'CandidateController.addscore',
   'POST /candidateanswers' : 'CandidateController.addCandidateAnswer',
   'GET /passedtests' : 'PassedTestController.getPassedTest',
+  'POST /createpassed' : 'PassedTestController.initPassedTest',
+  'GET /checkpassed/:token' : 'PassedTestController.getOnePassedTest',
   
 
   /***************************************************************************
