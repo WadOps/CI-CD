@@ -4,11 +4,6 @@ Quiz app is an application that manage quizzes for Hidden Founders
 
 ## Getting started
 
-To test the app, there is two ways :
+To test the app, clone or download the project and see how to run each subproject ```backend``` and ```frontend```
 
-first traditional approche : clone the develop branch (backend) and the frontend branch separately and run them separatly
-
-second approche : clone all the project and choose a branch, then add the second branch in the worktree of git, like :
-```
-git worktree <directory where the branch will be mounted> <the branch>
-```
+To look into the ```backoffice``` of the project look at https://github.com/nsbraksa/quiz-app-bo
