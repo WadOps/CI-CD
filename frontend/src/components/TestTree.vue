@@ -51,7 +51,7 @@ export default {
   data: () => ({
     btnStartGame: true, // button visibility
     btnRunTestStatus: 'Begin the test', // the inscription on the button
-    counting: false ,
+    // counting: null ,
     timeout: 0,
     x: true
   }),
@@ -61,7 +61,10 @@ export default {
     btnStatus () {
       return this.btnRunTestStatus
     },
-    ...mapState(['testComponent', 'testStatus'])
+    ...mapState(['testComponent', 'testStatus']),
+    ...mapState({
+      counting: state => state.counting
+    })
   },
   methods: {
     /*
@@ -76,7 +79,7 @@ export default {
         this.$store.commit('changeComponentStatus', 'test-questions')
       }
       this.$store.dispatch('beginTest')
-      this.counting = true
+      // this.counting = true
     }
   },
   mounted() {

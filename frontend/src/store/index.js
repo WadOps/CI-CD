@@ -16,12 +16,16 @@ export const store = new Vuex.Store({
     passedTestId: '',
     token:'',
     qsts : [],
-    starttime : null
+    starttime : null,
+    counting: false
   },
   getters: {
     quiz: state => state.quiz
   },
   mutations: {
+    setcounter (state) {
+      state.counting=!state.counting
+    },
     setstarttime (state) {
       state.starttime = Date.now()
     },
@@ -46,6 +50,7 @@ export const store = new Vuex.Store({
         starttime: state.starttime,
         token: state.token
     }).then(response => { state.passedTestId = response.data.data })
+    await commit('setcounter')
     },
     playTest: async ({commit, state}) => {
       await Api.customApi("get", "/gettest/"+state.token).then(response => {
@@ -58,6 +63,7 @@ export const store = new Vuex.Store({
     endTest: async ({commit, state}) => {
       state.testComponent = 'result'
       state.testStatus = false
+      await commit('setcounter')
       await Api.customApiParam("post", "/candidateanswers", {
         id: state.passedTestId,
         score: state.count,
