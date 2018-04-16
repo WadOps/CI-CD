@@ -36,6 +36,25 @@ module.exports = {
         })
     },
 
+    addCandidates(req,res) {
+        let nonecreated = []
+        for(let i in req.body.candidates) {
+            Candidate.create({name: req.body.candidates[i].name, email: req.body.candidates[i].email}).catch((err) => {
+                nonecreated.push(i)
+            })
+        }
+        if( nonecreated.length == 0)
+            return res.json({
+                success:true
+            })
+        else 
+            return res.json({
+                success: false,
+                data: "error in creating candidates "+nonecreated,
+                error: err
+            });
+    },
+
     getCandidates(req,res) {
         Candidate.find().populateAll().then((candidates) => {
             
@@ -49,13 +68,13 @@ module.exports = {
 
     
 
-    addscore(req,res) {
-        var jwt = require('jsonwebtoken')
-        var score = req.body.score
-        var token = req.body.token
-        var decoded = jwt.decode(token);
-        Candidate.update({email: decoded.email},{score: score}).then((candidate) => {})
-    },
+    // addscore(req,res) {
+    //     var jwt = require('jsonwebtoken')
+    //     var score = req.body.score
+    //     var token = req.body.token
+    //     var decoded = jwt.decode(token);
+    //     Candidate.update({email: decoded.email},{score: score}).then((candidate) => {})
+    // },
 
     async addCandidateAnswer(req,res) {
         var qsts = []
@@ -77,7 +96,8 @@ module.exports = {
         PassedTest.update({id: req.body.id},{score: req.body.score, qsts: qsts}).then((pt) => {}).catch(err => {
             return res.json({
                 success: false,
-                error: "error in Passed Test save",err
+                data: "error in Passed Test save",
+                error: err
             });
         })
     }
