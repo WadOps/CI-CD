@@ -49,16 +49,20 @@ export const store = new Vuex.Store({
       await Api.customApiParam("post", "/createpassed",{
         starttime: state.starttime,
         token: state.token
-    }).then(response => { state.passedTestId = response.data.data })
-    await commit('setcounter')
+      }).then(response => { state.passedTestId = response.data.data })
+      await commit('setcounter')
     },
     playTest: async ({commit, state}) => {
       await Api.customApi("get", "/gettest/"+state.token).then(response => {
-        state.quiz  = response.data.data;        
+        if(response.data.success == "expired")
+          commit ('changeComponentStatus','result')
+        else {
+          state.quiz  = response.data.data
+          state.dataLength = state.quiz.qsts.length
+          // and run the test
+          commit('runTest')     
+        }
       })
-      state.dataLength = state.quiz.qsts.length
-      // and run the test
-      await commit('runTest')
     },
     endTest: async ({commit, state}) => {
       state.testComponent = 'result'

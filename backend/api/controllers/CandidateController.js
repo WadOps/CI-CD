@@ -6,19 +6,33 @@
  */
 
 module.exports = {
-
+    
     generate(req,res) {
+        var moment = require('moment')
         var jwt = require('jsonwebtoken')
         baseurl = "localhost:8081"
         testid = req.body.id
         mail = req.body.email
+        expdate = req.body.expdate
 
-        Candidate.create({email: mail, affectedtest: testid}).then(() => {
-            var token = jwt.sign({ id: testid,email: mail },mail,{ algorithm: 'none'});
-            var url = baseurl+"/"+token
-            res.json({
-                data: url
-            })
+        Candidate.findOrCreate({email: mail, affectedtest: testid}).then((candidate) => {
+            try {
+                console.log(moment(expdate,"YYYY-MM-DD").diff(moment().startOf('day'), 'seconds'),Math.floor(Date.now() / 1000) + moment(expdate,"YYYY-MM-DD").diff(moment().startOf('day'), 'seconds'))
+                var token = jwt.sign({exp: Math.floor(Date.now() / 1000) + moment(expdate,"YYYY-MM-DD").diff(moment().startOf('day'), 'seconds'), id: testid,email: mail },mail,{ algorithm: 'none'});
+                var url = baseurl+"/"+token
+                console.log(url)
+                res.json({
+                    data: url
+                })
+            }
+            catch(error) {
+                Candidate.destroy({id: candidate.id})
+                return res.json({
+                    success: false,
+                    data: "Test not affected to candidate",
+                    error: error
+                });
+            }
         })
     },
 

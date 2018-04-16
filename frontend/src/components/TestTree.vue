@@ -15,12 +15,11 @@
       </v-snackbar>
       <transition name="slide-y-transition" appear>
         <!-- start button -->
-        <div class="text-xs-center" v-if="btnStartGame">
+        <div class="text-xs-center" v-if="startTest()">
           <v-btn
             color='blue'
             dark
-            @click.prevent.native='checkTestStatus(testStatus)'
-            
+            @click.prevent.native='checkTestStatus(testStatus)'            
           >{{btnRunTestStatus}}
           </v-btn>
         </div>
@@ -51,7 +50,6 @@ export default {
   data: () => ({
     btnStartGame: true, // button visibility
     btnRunTestStatus: 'Begin the test', // the inscription on the button
-    // counting: null ,
     timeout: 0,
     x: true
   }),
@@ -79,7 +77,14 @@ export default {
         this.$store.commit('changeComponentStatus', 'test-questions')
       }
       this.$store.dispatch('beginTest')
-      // this.counting = true
+    },
+    startTest () {
+      if(this.testComponent == "result") {
+        this.btnStartGame = false
+        return this.btnStartGame
+      } else {
+        return this.btnStartGame
+      }
     }
   },
   mounted() {

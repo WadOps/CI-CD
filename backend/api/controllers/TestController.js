@@ -71,30 +71,38 @@ module.exports = {
         var jwt = require('jsonwebtoken')
         var token = req.params.token
         
-        var decoded = jwt.decode(token);
-
-        Test.findOne({id: decoded.id}).populateAll().then((test) => {
-            var prmses = []
-            var prms = Question.find({test_id: test.id}).populate('answers').then((qsts) => {
-                test = test.toObject()
-                test.qsts = qsts;
-            })
-            prmses.push(prms)
-            Promise.all(prmses).then(() => {
-                res.json({
-                    success: true,
-                    data: test
+        var decoded = jwt.verify(token,'',(err,decoded)=>{
+            if(err) {
+                return res.json({
+                    success: "expired",
+                    data: "Token Expired",
+                    error: err
+                });
+            } else {
+                Test.findOne({id: decoded.id}).populateAll().then((test) => {
+                    var prmses = []
+                    var prms = Question.find({test_id: test.id}).populate('answers').then((qsts) => {
+                        test = test.toObject()
+                        test.qsts = qsts;
+                    })
+                    prmses.push(prms)
+                    Promise.all(prmses).then(() => {
+                        res.json({
+                            success: true,
+                            data: test
+                        })
+                    })
                 })
-            })
-        })
-        .catch((err) => {
-            console.log("test not found")
-            return res.json({
-                success: false,
-                data: "Test not found",
-                error: err
-            });
-        })
+                .catch((err) => {
+                    console.log("test not found")
+                    return res.json({
+                        success: false,
+                        data: "Test not found",
+                        error: err
+                    });
+                })
+            }
+        });
     }
 	
 };
