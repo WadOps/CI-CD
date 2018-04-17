@@ -10,7 +10,7 @@ module.exports = {
   attributes: {
 
     test : { model: 'test'},
-    candidate : { model: 'candidate', unique: true},
+    candidate : { model: 'candidate'},
     starttime : {type: 'string', required: true},
     score : { type: 'int', defaultsTo: 0},
     qsts : { type: 'array'}

@@ -32,9 +32,11 @@ module.exports = {
                         data: passedtest.id
                     });
                 }).catch(err => {
+                    console.log(err)
                     return res.json({
                         success: false,
-                        error: "error in Passed Test creation",err
+                        data: "error in Passed Test creation",
+                        error: err
                     });
                 })
             })

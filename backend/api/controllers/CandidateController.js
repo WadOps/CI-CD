@@ -15,12 +15,10 @@ module.exports = {
         mail = req.body.email
         expdate = req.body.expdate
 
-        Candidate.findOrCreate({email: mail, affectedtest: testid}).then((candidate) => {
+        Candidate.findOrCreate({email: mail}).then((candidate) => {
             try {
-                console.log(moment(expdate,"YYYY-MM-DD").diff(moment().startOf('day'), 'seconds'),Math.floor(Date.now() / 1000) + moment(expdate,"YYYY-MM-DD").diff(moment().startOf('day'), 'seconds'))
                 var token = jwt.sign({exp: Math.floor(Date.now() / 1000) + moment(expdate,"YYYY-MM-DD").diff(moment().startOf('day'), 'seconds'), id: testid,email: mail },mail,{ algorithm: 'none'});
                 var url = baseurl+"/"+token
-                console.log(url)
                 res.json({
                     data: url
                 })
@@ -102,11 +100,19 @@ module.exports = {
         })
     },
 
-    deleteCandidate(req,res) {
-        Candidate.destroy({id: req.body.candidate.id}).then(() => {
-            res.json({
-                success:true,
-            })
+    async deleteCandidate(req,res) {
+        await Candidate.destroy({id: req.body.candidate.id}).exec(function(err) {
+            if(err) {
+                return res.json({
+                    success: false,
+                    data: "error in Candidate delete",
+                    error: err
+                });
+            } else {
+                return res.json({
+                    success:true
+                })
+            }
         })
     }
 	

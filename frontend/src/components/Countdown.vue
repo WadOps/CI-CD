@@ -39,11 +39,13 @@
 		},
 		methods: {
             addOneSecondToActualTimeEverySecond () {
-                var component = this
-                component.actualTime = moment().format('X')
-                setTimeout(function(){
-                    component.addOneSecondToActualTimeEverySecond()
-                }, 1000);
+                if(this.timelimit>this.actualTime) {
+                    var component = this
+                    component.actualTime = moment().format('X')
+                    setTimeout(function(){
+                        component.addOneSecondToActualTimeEverySecond()
+                    }, 1000);
+                }
             },
             getDiffInSeconds () {
                 return this.timelimit - this.actualTime
@@ -63,7 +65,7 @@
             this.addOneSecondToActualTimeEverySecond()
             },
             watch: {
-                actualTime (val,oldVal) {
+                actualTime (val) {
                     this.compute()
                     if(val == this.timelimit) {
                         this.$store.dispatch('endTest')
