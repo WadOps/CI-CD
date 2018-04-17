@@ -26,7 +26,7 @@ module.exports = {
                 })
             }
             catch(error) {
-                Candidate.destroy({id: candidate.id})
+                // Candidate.destroy({id: candidate.id})
                 return res.json({
                     success: false,
                     data: "Test not affected to candidate",
@@ -99,6 +99,14 @@ module.exports = {
                 data: "error in Passed Test save",
                 error: err
             });
+        })
+    },
+
+    deleteCandidate(req,res) {
+        Candidate.destroy({id: req.body.candidate.id}).then(() => {
+            res.json({
+                success:true,
+            })
         })
     }
 	
