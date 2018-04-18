@@ -114,6 +114,15 @@ module.exports = {
                 })
             }
         })
+    },
+
+    updateCandidate(req,res) {
+        Candidate.update({id: req.body.id},{name: req.body.candidates[0].name, email:req.body.candidates[0].email}).then((candidate) => {
+            return res.json({
+                success: true,
+                data: candidate
+            })
+        })
     }
 	
 };
