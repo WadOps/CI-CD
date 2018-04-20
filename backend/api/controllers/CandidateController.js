@@ -101,7 +101,7 @@ module.exports = {
     },
 
     async deleteCandidate(req,res) {
-        await Candidate.destroy({id: req.body.candidate.id}).exec(function(err) {
+        await Candidate.destroy({id: req.params.id}).exec(function(err) {
             if(err) {
                 return res.json({
                     success: false,
@@ -123,7 +123,47 @@ module.exports = {
                 data: candidate
             })
         })
-    }
+    },
+
+    sendmailtoCandidate(req,res) {
+        sails.log.debug('try to send mail');
+
+        const Email = require('email-templates');
+
+        const email = new Email({
+        message: {
+            from: 'technical.screening.hf@gmail.com'
+        },
+        // uncomment below to send emails in development/test env:
+        send: true,
+        transport: {
+            service: "Gmail",
+            auth: {
+                user: "technical.screening.hf@gmail.com",
+                pass: "hiddenfounders"
+            },
+            tls: {
+                rejectUnauthorized: false
+            }
+        }
+        });
+
+        email
+            .send({
+                template: 'emailTemplates',
+                message: {
+                    to: req.body.email,
+                    subject: req.body.subject
+                },
+                locals: {
+                    name: req.body.name,
+                    message: req.body.message,
+                    link: req.body.link
+                }
+            })
+            .then(console.log)
+            .catch(console.error);
+        }
 	
 };
 
