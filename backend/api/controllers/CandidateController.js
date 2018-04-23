@@ -134,7 +134,6 @@ module.exports = {
         message: {
             from: 'technical.screening.hf@gmail.com'
         },
-        // uncomment below to send emails in development/test env:
         send: true,
         transport: {
             service: "Gmail",
@@ -161,7 +160,13 @@ module.exports = {
                     link: req.body.link
                 }
             })
-            .then(console.log)
+            .then(() => {
+                console.log
+                return res.json({
+                    success: true,
+                    data : "Email sent"
+                })
+            })
             .catch(console.error);
         }
 	
