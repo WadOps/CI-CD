@@ -11,7 +11,9 @@ module.exports = {
     qsts : { collection: 'question', via: 'test_id'},
     difficulty : { type: 'string' , required: true},
     time : { type: 'int' , required: true },
-    techstack : { type: 'array' }
+    techstack : { type: 'array' },
+    assessment_id : { model: 'assessment'}
+
   }
 };
 
