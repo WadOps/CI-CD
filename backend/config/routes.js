@@ -37,6 +37,9 @@ module.exports.routes = {
   'POST /createpassed' : 'PassedTestController.initPassedTest',
   'GET /checkpassed/:token' : 'PassedTestController.getOnePassedTest',
   'POST /assessments/crud' : 'AssessmentController.addAssessment',
+  'PUT /assessments/crud' : 'AssessmentController.updateExptime',
+  'GET /assessments' : 'AssessmentController.getAssessment',
+  'DELETE /assessments/crud/:id' : 'AssessmentController.deleteAssessment',
   
 
   /***************************************************************************

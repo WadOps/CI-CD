@@ -15,8 +15,40 @@ module.exports = {
             })
         }).catch(err => {
             console.log(err)
+        })    
+    },
+
+    getAssessment(req,res) {
+        Assessment.find().populateAll().then((assessments) => {
+                res.json({
+                    success: true,
+                    data: assessments
+                })
         })
-        
+    },
+
+    updateExptime(req,res) {
+        Assessment.update({id: req.body.id},{time: req.body.time}).then(() => {
+            return res.json({
+                success: true
+            })
+        })
+    },
+
+    deleteAssessment(req,res) {
+        Assessment.destroy({id: req.params.id}).exec(function(err) {
+            if(err) {
+                return res.json({
+                    success: false,
+                    data: "error in Assessment delete",
+                    error: err
+                });
+            } else {
+                return res.json({
+                    success:true
+                })
+            }
+        })
     }
 
 };
