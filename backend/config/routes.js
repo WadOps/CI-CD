@@ -40,6 +40,10 @@ module.exports.routes = {
   'PUT /assessments/crud' : 'AssessmentController.updateExptime',
   'GET /assessments' : 'AssessmentController.getAssessment',
   'DELETE /assessments/crud/:id' : 'AssessmentController.deleteAssessment',
+  'POST /authenticate': 'UserController.authenticate',
+  'POST /users/crud' : 'UserController.addUser',
+  // 'DELETE /users/crud/:id' : 'UserController.deleteUser',
+  // 'PUT /users/crud' : 'UserController.updateUser',
   
 
   /***************************************************************************
