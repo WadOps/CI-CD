@@ -7,7 +7,8 @@ module.exports = function hasToken(req, res, next) {
 			if (err) {
 				return res.json({
                     success: false, 
-                    data: "Failed to authenticate token"
+					data: "Not authorized",
+					error: err
                 })
 			} else {
 				next()
@@ -16,7 +17,7 @@ module.exports = function hasToken(req, res, next) {
 	} else {
 		return res.json({
 			success: false,
-			data: "No token provided"
+			data: "Not authorized"
 		})
 	}
 }
