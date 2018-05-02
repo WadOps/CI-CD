@@ -13,9 +13,9 @@ module.exports = {
     email: { type: 'string', unique: true, required: true},
     password: { type: 'string', required: true},
     role: { type: 'string', enum: ['Admin', 'User'], defaultsTo : 'User'},
-    // candidates: { collection: 'candidate'},
-    // assessments: { collection: 'assessment'},
-    // tests: {collection: 'test'}
+    candidates: { collection: 'candidate'},
+    assessments: { collection: 'assessment'},
+    tests: {collection: 'test'}
 
   },
 

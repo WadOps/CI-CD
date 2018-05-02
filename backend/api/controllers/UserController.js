@@ -10,9 +10,10 @@ module.exports = {
     authenticate(req,res) {
         let { username, password } = req.body
         const jwt = require('jsonwebtoken')
+        var Passwords = require('machinepack-passwords')
         const secret = sails.config.jwtSecret
         
-		if (!email || !password) {
+		if (!username || !password) {
 			return res.json({
                 success: false, 
                 data: "You must provide a username/password in the request body",
@@ -20,7 +21,7 @@ module.exports = {
 		}
 
 		const { superuser, pass, role} = sails.config.orgAdmin
-		if (email !== superuser || password !== pass) {
+		if (username !== superuser || password !== pass) {
             User.findOne({email: username}).then(user => {
                 if (user) {
                     Passwords.checkPassword({passwordAttempt: password, encryptedPassword: user.password}).exec({
