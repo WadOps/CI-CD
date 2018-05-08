@@ -13,12 +13,25 @@ export const store = new Vuex.Store({
     count: 0, // correct answer counter
     testComponent: null,
     resultMark: null,
-    token:''
+    passedTestId: '',
+    token:'',
+    qsts : [],
+    starttime : null,
+    counting: false
   },
   getters: {
     quiz: state => state.quiz
   },
   mutations: {
+    setcounter (state) {
+      state.counting=!state.counting
+    },
+    setstarttime (state) {
+      state.starttime = Date.now()
+    },
+    addqst (state, qst_answer) {
+      state.qsts.push(qst_answer)
+    },
     defineToken (state, token) {
       state.token = token
     },
@@ -32,22 +45,34 @@ export const store = new Vuex.Store({
     addCount: state => state.count ++,
   },
   actions: {
+    beginTest: async ({commit, state}) => {
+      await Api.customApiParam("post", "/createpassed",{
+        starttime: state.starttime,
+        token: state.token
+      }).then(response => { state.passedTestId = response.data.data })
+      await commit('setcounter')
+    },
     playTest: async ({commit, state}) => {
       await Api.customApi("get", "/gettest/"+state.token).then(response => {
-        state.quiz  = response.data.data;        
+        if(response.data.success == "expired")
+          commit ('changeComponentStatus','result')
+        else {
+          state.quiz  = response.data.data
+          state.dataLength = state.quiz.qsts.length
+          // and run the test
+          commit('runTest')     
+        }
       })
-      state.dataLength = state.quiz.qsts.length
-      // and run the test
-      await commit('runTest')
     },
     endTest: async ({commit, state}) => {
       state.testComponent = 'result'
       state.testStatus = false
-      await Api.customApiParam("post", "/endtest",{
+      await commit('setcounter')
+      await Api.customApiParam("post", "/candidateanswers", {
+        id: state.passedTestId,
         score: state.count,
-        token: state.token
-      })
-        
+        qsts: state.qsts
+      })       
     }
   }
 })

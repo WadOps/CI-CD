@@ -1,5 +1,5 @@
 <template>
-  <v-app dark app>
+  <v-app :dark="dark" app>
     <v-navigation-drawer
       temporary
       v-model="drawer"
@@ -22,7 +22,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar class='grey darken-4' dark flat app>
+    <v-toolbar class='error darken-4' dark flat app>
       <v-btn
         icon
         class="hidden-md-and-up"
@@ -32,18 +32,17 @@
       </v-btn>
       <v-toolbar-title v-text='title' class="cur" @click='goBrand' @click.middle='goBrand'></v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-items v-once class="hidden-sm-and-down">
-        <v-btn
-          flat
-          v-for="item in menuItems"
-          :key='item.title'
-          :href='item.link'
-        >{{item.title}}
+      <v-menu offset-y="offset-y">
+        <v-btn icon="icon" dark="dark" slot="activator" @click="changetheme()">
+          <v-icon dark="dark" v-if="!dark" >brightness_3</v-icon>
+          <v-icon dark="dark" v-if="dark" >wb_sunny</v-icon>
         </v-btn>
-      </v-toolbar-items>
+      </v-menu>
     </v-toolbar>
 
     <v-content class="app">
+
+      <!-- <Count /> -->
 
       <transition name="fade" appear mode="out-in">
         <test-tree/>
@@ -63,20 +62,26 @@
 <script>
 import { mapState } from 'vuex'
 import ScrollUp from './ScrollUp'
+import Count from './Countdown'
 const TestTree = () => import('./TestTree.vue')
 
 export default {
   name: 'app',
   components: {
+    Count,
     TestTree,
     ScrollUp
   },
   data: () => ({
+    dark: true,
     drawer: false,
     menuItems: [],
     title: 'Your first step to Hidden Founders'
   }),
   methods: {
+    changetheme() {
+      this.dark=!this.dark
+    },
     goBrand () {
       window.location.reload()
     },

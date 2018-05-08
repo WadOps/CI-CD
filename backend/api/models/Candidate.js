@@ -8,9 +8,25 @@
 module.exports = {
 
   attributes: {
-    email : { type: 'string', unique: true},
-    affectedtest : { model: 'test'},
-    score : { type: 'int', defaultsTo: 0}
+    name: { type: 'string' },
+    email : { type: 'string', unique: true, required: true},
+    // affectedtest : { model: 'test'},
+    // Passedtests: { collection: 'passedTest', via: 'candidate'}
+  },
+
+  afterDestroy: function(destroyed, cb) {
+    PassedTest.find({candidate: destroyed[0].id}).then((passedtests) => {
+		for(let i in passedtests) {
+			PassedTest.destroy({id: passedtests[i].id}).catch((err) => {
+				return res.json({
+					success: false,
+					data: "error in Passed Test delete",
+					error: err
+				});
+			})
+		}
+	})
+	cb()
   }
 };
 

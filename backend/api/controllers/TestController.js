@@ -8,9 +8,9 @@
 module.exports = {
 
     create(req,res) { 
-        let data = req.body
-        Test.create({}).then((test) => {
-            for(let i in req.body) {
+        let data = req.body.questions
+        Test.create({difficulty: req.body.diff, time: req.body.timelimit, techstack: req.body.techstack}).then((test) => {
+            for(let i in req.body.questions) {
                 Question.create({test_id: test.id, desc: data[i].desc}).then((question) => {
                     for(let j in data[i].answers) {
                         let asw = data[i].answers[j]
@@ -18,7 +18,8 @@ module.exports = {
                             Question.destroy({id: question.id})
                             return res.json({
                                 success: false,
-                                error: "error in answer creation",err
+                                data: "error in answer creation",
+                                error:err
                             });
                         })
                     }
@@ -26,7 +27,8 @@ module.exports = {
                     Test.destroy({id: test.id})
                     return res.json({
                         success: false,
-                        error: "error in question creation",err
+                        data: "error in question creation",
+                        error: err
                     });
                 })
             }
@@ -39,7 +41,8 @@ module.exports = {
         }).catch((err) => {
             return res.json({
                 success: false,
-                error: "error in test creation",err
+                data: "error in test creation",
+                error: err
             });
         })
     },
@@ -68,28 +71,38 @@ module.exports = {
         var jwt = require('jsonwebtoken')
         var token = req.params.token
         
-        var decoded = jwt.decode(token);
-
-        Test.findOne({id: decoded.id}).populateAll().then((test) => {
-            var prmses = []
-            var prms = Question.find({test_id: test.id}).populate('answers').then((qsts) => {
-                test = test.toObject()
-                test.qsts = qsts;
-            })
-            prmses.push(prms)
-            Promise.all(prmses).then(() => {
-                res.json({
-                    success: true,
-                    data: test
+        var decoded = jwt.verify(token,'',(err,decoded)=>{
+            if(err) {
+                return res.json({
+                    success: "expired",
+                    data: "Token Expired",
+                    error: err
+                });
+            } else {
+                Test.findOne({id: decoded.id}).populateAll().then((test) => {
+                    var prmses = []
+                    var prms = Question.find({test_id: test.id}).populate('answers').then((qsts) => {
+                        test = test.toObject()
+                        test.qsts = qsts;
+                    })
+                    prmses.push(prms)
+                    Promise.all(prmses).then(() => {
+                        res.json({
+                            success: true,
+                            data: test
+                        })
+                    })
                 })
-            })
-        })
-        .catch((err) => {
-            return res.json({
-                success: false,
-                error: "Test not found",err
-            });
-        })
+                .catch((err) => {
+                    console.log("test not found")
+                    return res.json({
+                        success: false,
+                        data: "Test not found",
+                        error: err
+                    });
+                })
+            }
+        });
     }
 	
 };

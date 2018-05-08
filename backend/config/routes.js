@@ -22,13 +22,31 @@
 
 module.exports.routes = {
 
-  'POST   /tests' : 'TestController.create',
+  'POST /tests' : 'TestController.create',
   'GET /tests' : 'TestController.get',
-  // 'GET /:token' : 'TestController.redirect',
   'GET /gettest/:token' : 'TestController.getOneWithToken',
   'POST  /generateurl' : 'CandidateController.generate',
   'GET /candidates' : 'CandidateController.getCandidates',
-  'POST /endtest' : 'CandidateController.addscore'
+  'POST /candidates/crud' : 'CandidateController.addCandidates',
+  'DELETE /candidates/crud/:id' : 'CandidateController.deleteCandidate',
+  'PUT /candidates/crud' : 'CandidateController.updateCandidate',
+  'POST /sendmail' : 'CandidateController.sendmailtoCandidate',
+  // 'POST /endtest' : 'CandidateController.addscore',
+  'POST /candidateanswers' : 'CandidateController.addCandidateAnswer',
+  'GET /passedtests' : 'PassedTestController.getPassedTest',
+  'POST /createpassed' : 'PassedTestController.initPassedTest',
+  'GET /checkpassed/:token' : 'PassedTestController.getOnePassedTest',
+  'POST /assessments/crud' : 'AssessmentController.addAssessment',
+  'PUT /assessments/crud' : 'AssessmentController.updateExptime',
+  'GET /assessments' : 'AssessmentController.getAssessment',
+  'DELETE /assessments/crud/:id' : 'AssessmentController.deleteAssessment',
+  'POST /authenticate': 'UserController.authenticate',
+  'GET /users' : 'UserController.getUsers',
+  'POST /users/crud' : 'UserController.addUser',
+  'PUT /users/crud' : 'UserController.updateUser',
+  'DELETE /users/crud/:id' : 'UserController.deleteUser',
+  'POST /sendinfomail' : 'UserController.sendmailtoUser',
+
   
 
   /***************************************************************************

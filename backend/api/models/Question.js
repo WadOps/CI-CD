@@ -10,9 +10,9 @@ module.exports = {
   attributes: {
     test_id : { model: 'test', required: true},
     desc : { type:'string', required: true},
-    answers : { collection: 'answer', via: 'qst_id'}
-
-
+    answers : { collection: 'answer', via: 'qst_id'},
+    passedtests : { colection: 'passedTest', via: 'qsts'},
+    
   }
 };
 
