@@ -3,6 +3,10 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
 version: 2
+
+general:
+  build_dir: backend
+
 jobs:
   build:
     docker:
@@ -14,7 +18,7 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       - image: circleci/mongo:3.4.4
 
-    working_directory: ~/repo/backend
+    working_directory: ~/repo
 
     steps:
       - checkout
