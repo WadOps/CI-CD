@@ -22,17 +22,21 @@
     "include-all": "^1.0.0",
     "jsonwebtoken": "^8.2.0",
     "machinepack-passwords": "^2.3.0",
+    "mocha": "^5.1.1",
     "moment": "^2.22.0",
     "nodemailer": "^4.6.4",
     "rc": "1.0.1",
     "sails": "~0.12.14",
     "sails-disk": "~0.10.9",
     "sails-hook-email": "^0.12.1",
-    "sails-mongo": "^0.12.3"
+    "sails-mongo": "^0.12.3",
+    "should": "^13.2.1",
+    "supertest": "^3.0.0"
   },
   "scripts": {
     "debug": "node debug app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "node ./node_modules/mocha/bin/mocha test/lifecycle.test.js test/integration/**/*.test.js"
   },
   "main": "app.js",
   "repository": {
