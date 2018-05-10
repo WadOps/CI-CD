@@ -64,6 +64,14 @@ module.exports.connections = {
     // password: 'password', //optional
     database: 'quiz-app' //optional
   },
+  test: {
+    adapter: 'sails-mongo',
+    host: 'localhost',
+    port: 27017,
+    // user: 'username', //optional
+    // password: 'password', //optional
+    database: 'quiz-app_TEST' //optional
+}
 
   /***************************************************************************
   *                                                                          *

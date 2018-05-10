@@ -1,0 +1,4 @@
+--reporter spec
+--bail
+--timeout 100s
+test/integration/controllers/**/*.test.js
