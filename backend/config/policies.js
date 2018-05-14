@@ -30,6 +30,18 @@ module.exports.policies = {
 
   'UserController': {
     authenticate: true
+  },
+
+  'PassedTestController': {
+    '*': true
+  },
+
+  'TestController': {
+    getOneWithToken: true
+  },
+
+  'CandidateController': {
+  addCandidateAnswer: true
   }
 
   /***************************************************************************

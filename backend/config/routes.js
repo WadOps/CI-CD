@@ -25,6 +25,7 @@ module.exports.routes = {
   'POST /tests' : 'TestController.create',
   'GET /tests' : 'TestController.get',
   'GET /gettest/:token' : 'TestController.getOneWithToken',
+
   'POST  /generateurl' : 'CandidateController.generate',
   'GET /candidates' : 'CandidateController.getCandidates',
   'POST /candidates/crud' : 'CandidateController.addCandidates',
@@ -33,13 +34,16 @@ module.exports.routes = {
   'POST /sendmail' : 'CandidateController.sendmailtoCandidate',
   // 'POST /endtest' : 'CandidateController.addscore',
   'POST /candidateanswers' : 'CandidateController.addCandidateAnswer',
+
   'GET /passedtests' : 'PassedTestController.getPassedTest',
   'POST /createpassed' : 'PassedTestController.initPassedTest',
   'GET /checkpassed/:token' : 'PassedTestController.getOnePassedTest',
+
   'POST /assessments/crud' : 'AssessmentController.addAssessment',
   'PUT /assessments/crud' : 'AssessmentController.updateExptime',
   'GET /assessments' : 'AssessmentController.getAssessment',
   'DELETE /assessments/crud/:id' : 'AssessmentController.deleteAssessment',
+  
   'POST /authenticate': 'UserController.authenticate',
   'GET /users' : 'UserController.getUsers',
   'POST /users/crud' : 'UserController.addUser',
