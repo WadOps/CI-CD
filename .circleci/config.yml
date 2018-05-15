@@ -36,9 +36,9 @@ jobs:
           command: yarn install
 
       - save_cache:
-          paths:
-            - node_modules
           key: v1-dependencies-{{ checksum "backend/package.json" }}
+          paths:
+            - .node_modules
         
       # run tests!
       - run: 
