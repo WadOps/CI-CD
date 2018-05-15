@@ -4,5 +4,7 @@ EXPOSE 1337
 
 COPY . .
 
+WORKDIR /backend
+
 RUN npm install && npm cache clean
 
