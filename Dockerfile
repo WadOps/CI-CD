@@ -6,5 +6,5 @@ COPY . .
 
 WORKDIR /backend
 
-RUN npm install && npm cache clean
+RUN npm install && npm cache verify
 
