@@ -6,5 +6,7 @@ COPY . .
 
 WORKDIR /backend
 
+RUN npm -g install sails
+
 RUN npm install && npm cache verify
 
