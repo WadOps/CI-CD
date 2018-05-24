@@ -1,12 +1,8 @@
 FROM	node:9-alpine
 
-EXPOSE 1337 8081
+EXPOSE 1337
 
 COPY . .
-
-WORKDIR /frontend
-
-RUN npm install && npm cache verify
 
 WORKDIR /backend
 
