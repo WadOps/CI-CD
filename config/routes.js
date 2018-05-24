@@ -22,30 +22,34 @@
 
 module.exports.routes = {
 
-  'POST /tests' : 'TestController.create',
-  'GET /tests' : 'TestController.get',
+  'POST /tests' : 'TestController.create', //bo
+  'GET /tests' : 'TestController.get', //bo
   'GET /gettest/:token' : 'TestController.getOneWithToken',
-  'POST  /generateurl' : 'CandidateController.generate',
-  'GET /candidates' : 'CandidateController.getCandidates',
-  'POST /candidates/crud' : 'CandidateController.addCandidates',
-  'DELETE /candidates/crud/:id' : 'CandidateController.deleteCandidate',
-  'PUT /candidates/crud' : 'CandidateController.updateCandidate',
-  'POST /sendmail' : 'CandidateController.sendmailtoCandidate',
+
+  'POST  /generateurl' : 'CandidateController.generate', //bo
+  'GET /candidates' : 'CandidateController.getCandidates', //bo
+  'POST /candidates/crud' : 'CandidateController.addCandidates', //bo
+  'DELETE /candidates/crud/:id' : 'CandidateController.deleteCandidate', //bo
+  'PUT /candidates/crud' : 'CandidateController.updateCandidate', //bo
+  'POST /sendmail' : 'CandidateController.sendmailtoCandidate', //bo
   // 'POST /endtest' : 'CandidateController.addscore',
-  'POST /candidateanswers' : 'CandidateController.addCandidateAnswer',
+  'POST /candidateanswers' : 'CandidateController.addCandidateAnswer', 
+
   'GET /passedtests' : 'PassedTestController.getPassedTest',
   'POST /createpassed' : 'PassedTestController.initPassedTest',
   'GET /checkpassed/:token' : 'PassedTestController.getOnePassedTest',
-  'POST /assessments/crud' : 'AssessmentController.addAssessment',
-  'PUT /assessments/crud' : 'AssessmentController.updateExptime',
-  'GET /assessments' : 'AssessmentController.getAssessment',
-  'DELETE /assessments/crud/:id' : 'AssessmentController.deleteAssessment',
-  'POST /authenticate': 'UserController.authenticate',
-  'GET /users' : 'UserController.getUsers',
-  'POST /users/crud' : 'UserController.addUser',
-  'PUT /users/crud' : 'UserController.updateUser',
-  'DELETE /users/crud/:id' : 'UserController.deleteUser',
-  'POST /sendinfomail' : 'UserController.sendmailtoUser',
+
+  'POST /assessments/crud' : 'AssessmentController.addAssessment', //bo
+  'PUT /assessments/crud' : 'AssessmentController.updateExptime', //bo
+  'GET /assessments' : 'AssessmentController.getAssessment', //bo
+  'DELETE /assessments/crud/:id' : 'AssessmentController.deleteAssessment', //bo
+
+  'POST /authenticate': 'UserController.authenticate', 
+  'GET /users' : 'UserController.getUsers', //bo
+  'POST /users/crud' : 'UserController.addUser', //bo
+  'PUT /users/crud' : 'UserController.updateUser', //bo
+  'DELETE /users/crud/:id' : 'UserController.deleteUser', //bo
+  'POST /sendinfomail' : 'UserController.sendmailtoUser', //bo
 
   
 

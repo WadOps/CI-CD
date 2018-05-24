@@ -28,9 +28,23 @@ module.exports.policies = {
 
   '*': 'hasToken',
 
+  'TestController': {
+    getOneWithToken: true
+  },
+
+  'CandidateController': {
+    addCandidateAnswer: true
+  },
+
+  'PassedTestController': {
+    '*': true
+  },
+
   'UserController': {
     authenticate: true
   }
+
+
 
   /***************************************************************************
   *                                                                          *

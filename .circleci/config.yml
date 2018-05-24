@@ -6,6 +6,10 @@ version: 2
 
 jobs:
   build:
+    branches:
+      only:
+        - develop
+        
     docker:
       # specify the version you desire here
       - image: circleci/node:7.10
@@ -23,20 +27,39 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "backend/package.json" }}
+          - v2-dependencies-{{ checksum "package.json" }}
           # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+          - v2-dependencies-
 
       - run: 
-          working_directory: backend
-          command: ls && yarn install
+          command: yarn install
 
       - save_cache:
+          key: v2-dependencies-{{ checksum "package.json" }}
           paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "backend/package.json" }}
+            - .node_modules
         
       # run tests!
       - run: 
-          working_directory: backend
           command: yarn test
+    
+      - setup_remote_docker:   
+          docker_layer_caching: true 
+
+      # use a primary image that already has Docker (recommended)
+      # or install it during a build like we do here
+    #   - run:
+    #       name: Install Docker client
+    #       command: |
+    #         set -x
+    #         VER="17.03.0-ce"
+    #         curl -L -o /tmp/docker-$VER.tgz https://download.docker.com/linux/static/stable/x86_64/docker-$VER.tgz
+    #         tar -xz -C /tmp -f /tmp/docker-$VER.tgz
+    #         sudo mv /tmp/docker/* /usr/bin
+
+      # build and push Docker image
+      - run: |
+          TAG=latest
+          docker build -t wadman/circleci-demo:$TAG .      
+          docker login -u $DOCKER_USER -p $DOCKER_PASS         
+          docker push wadman/circleci-demo:$TAG
