@@ -4,7 +4,7 @@ EXPOSE 1337
 
 COPY . .
 
-RUN apt-get install nano
+RUN apk add nano
 
 RUN npm -g install sails@0.12.14
 
