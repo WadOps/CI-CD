@@ -4,7 +4,7 @@ EXPOSE 1337
 
 COPY . .
 
-RUN apk update && apk add nano==2.9.6-r0
+RUN apk update && apk add nano
 
 RUN npm -g install sails@0.12.14
 
