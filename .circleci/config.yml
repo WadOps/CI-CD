@@ -71,9 +71,9 @@ jobs:
     steps:
       - checkout
       - run: 
-          rancher-compose --url $RANCHER_URL --access-key $RANCHER_ACCESS_KEY --secret-key $RANCHER_SECRET_KEY 
-      - run:
-          rancher-compose -f deploy/docker-compose.yml -r deploy/rancher-compose up --upgrade app-sails --pull --confirm-upgrade
+          rancher-compose --url $RANCHER_URL --access-key $RANCHER_ACCESS_KEY --secret-key $RANCHER_SECRET_KEY -f deploy/docker-compose.yml -r deploy/rancher-compose up --upgrade app-sails --pull --confirm-upgrade
+    #   - run:
+    #       rancher-compose -f deploy/docker-compose.yml -r deploy/rancher-compose up --upgrade app-sails --pull --confirm-upgrade
 
 workflows:
   version: 2
