@@ -63,10 +63,10 @@ jobs:
           docker build -t wadman/circleci-demo:$TAG .      
           docker login -u $DOCKER_USER -p $DOCKER_PASS         
           docker push wadman/circleci-demo:$TAG
-          
+
   deploy:
     docker:
-        image: rancher/cli
+      - image: rancher/cli
 
     steps:
       - checkout
