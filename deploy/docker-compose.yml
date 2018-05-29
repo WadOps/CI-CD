@@ -1,7 +1,7 @@
 version: '2'
 services:
   app-sails:
-    image: wadman/circleci-demo:latest
+    image: wadman/circleci-demo-bo:latest
     stdin_open: true
     tty: true
     links:
