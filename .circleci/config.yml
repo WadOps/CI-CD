@@ -65,7 +65,8 @@ jobs:
     #       docker push wadman/circleci-demo:$TAG
 
   deploy:
-    docker: protocool/rancher-circleci:latest
+    docker: 
+      - image: protocool/rancher-circleci:latest
 
     steps:
       - checkout
