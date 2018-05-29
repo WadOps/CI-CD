@@ -1,0 +1,54 @@
+version: '2'
+services:
+  app-sails:
+    image: wadman/circleci-demo:latest
+    stdin_open: true
+    tty: true
+    links:
+    - db-mongo:db-mongo
+    command:
+    - node
+    - app.js
+    - --prod
+    labels:
+      io.rancher.container.pull_image: always
+  db-mongo:
+    image: mongo
+    stdin_open: true
+    tty: true
+    volumes_from:
+    - data
+    command:
+    - mongod
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.sidekicks: data
+  data:
+    image: busybox
+    stdin_open: true
+    volumes:
+    - /data/db
+    tty: true
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.start_once: 'true'
+  app-backoffice:
+    image: wadman/circleci-demo-bo:latest
+    stdin_open: true
+    tty: true
+    links:
+    - app-sails:app-sails
+    command:
+    - npm
+    - start
+    labels:
+      io.rancher.container.pull_image: always
+  LoadBalencer:
+    image: rancher/lb-service-haproxy:v0.7.15
+    ports:
+    - 8081:8081/tcp
+    - 7331:7331/tcp
+    labels:
+      io.rancher.container.agent.role: environmentAdmin,agent
+      io.rancher.container.agent_service.drain_provider: 'true'
+      io.rancher.container.create_agent: 'true'

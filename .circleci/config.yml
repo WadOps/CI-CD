@@ -63,3 +63,14 @@ jobs:
           docker build -t wadman/circleci-demo:$TAG .      
           docker login -u $DOCKER_USER -p $DOCKER_PASS         
           docker push wadman/circleci-demo:$TAG
+          
+  deploy:
+    docker:
+        image: rancher/cli
+
+    steps:
+      - checkout
+      - run: 
+          rancher --url $RANCHER_URL --access-key $RANCHER_ACCESS_KEY --secret-key $RANCHER_SECRET_KEY -s technical-screening-app
+      - run:
+          rancher-compose -f deploy/docker-compose.yml -r deploy/rancher-compose up --upgrade app-sails --pull --confirm-upgrade

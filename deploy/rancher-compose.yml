@@ -1,0 +1,41 @@
+version: '2'
+services:
+  app-sails:
+    scale: 1
+    start_on_create: true
+  db-mongo:
+    scale: 1
+    start_on_create: true
+  data:
+    scale: 1
+    start_on_create: true
+  app-backoffice:
+    scale: 1
+    start_on_create: true
+  LoadBalencer:
+    scale: 1
+    start_on_create: true
+    lb_config:
+      certs: []
+      port_rules:
+      - backend_name: ''
+        hostname: tech.screening.sdrm.me
+        priority: 1
+        protocol: http
+        service: app-backoffice
+        source_port: 8081
+        target_port: 8080
+      - hostname: backend.tech.sdrm.me
+        priority: 2
+        protocol: http
+        service: app-sails
+        source_port: 7331
+        target_port: 1337
+    health_check:
+      healthy_threshold: 2
+      response_timeout: 2000
+      port: 42
+      unhealthy_threshold: 3
+      initializing_timeout: 60000
+      interval: 2000
+      reinitializing_timeout: 60000
