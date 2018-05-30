@@ -10,8 +10,6 @@ services:
     - node
     - app.js
     - --prod
-    labels:
-      io.rancher.container.pull_image: always
   db-mongo:
     image: mongo
     stdin_open: true
