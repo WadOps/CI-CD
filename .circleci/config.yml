@@ -69,7 +69,7 @@ jobs:
       - image: etlweather/gaucho:latest # protocool/rancher-circleci:latest
 
     steps:
-      - checkout
+      # - checkout
       # - run: 
       #     rancher-compose --url $RANCHER_URL --access-key $RANCHER_ACCESS_KEY --secret-key $RANCHER_SECRET_KEY
       # - run:
@@ -80,7 +80,7 @@ jobs:
             export CATTLE_SECRET_KEY=3EC9RRF8kiMcD7sWVSRcBt67HnJkoUe7hifJW9u8
             export CATTLE_URL=http://rancher.sdrm.me:8080/v2-beta/projects/1a5
       - run: |
-            ls &&
+            ls -A &&
             ./services.py query app-sails
 
 
