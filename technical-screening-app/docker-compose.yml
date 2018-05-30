@@ -9,6 +9,7 @@ services:
     command:
     - node
     - app.js
+    - --prod
     labels:
       io.rancher.container.pull_image: always
   db-mongo:
