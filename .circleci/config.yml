@@ -79,7 +79,7 @@ jobs:
             export CATTLE_ACCESS_KEY=73F66D73E67803DFAE20
             export CATTLE_SECRET_KEY=3EC9RRF8kiMcD7sWVSRcBt67HnJkoUe7hifJW9u8
             export CATTLE_URL=http://rancher.sdrm.me:8080/v2-beta/projects/1a5
-      - run: 
+      - run: |
             ls
             ./services.py query app-sails
 
