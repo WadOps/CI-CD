@@ -66,14 +66,23 @@ jobs:
 
   deploy:
     docker: 
-      - image: protocool/rancher-circleci:latest
+      - image: etlweather/gaucho:latest # protocool/rancher-circleci:latest
 
     steps:
       - checkout
+      # - run: 
+      #     rancher-compose --url $RANCHER_URL --access-key $RANCHER_ACCESS_KEY --secret-key $RANCHER_SECRET_KEY
+      # - run:
+      #     rancher-compose -f deploy/docker-compose.yml -r deploy/rancher-compose --debug up --force-upgrade --pull -d app-sails 
+
+      - run: |
+            export CATTLE_ACCESS_KEY=73F66D73E67803DFAE20
+            export CATTLE_SECRET_KEY=3EC9RRF8kiMcD7sWVSRcBt67HnJkoUe7hifJW9u8
+            export CATTLE_URL=http://rancher.sdrm.me:8080/v2-beta/projects/1a5
       - run: 
-          rancher-compose --url $RANCHER_URL --access-key $RANCHER_ACCESS_KEY --secret-key $RANCHER_SECRET_KEY
-      - run:
-          rancher-compose -f deploy/docker-compose.yml -r deploy/rancher-compose --debug up --force-upgrade --pull -d app-sails 
+            ./services.py query app-sails
+
+
 
 workflows:
   version: 2
