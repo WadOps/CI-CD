@@ -12,7 +12,7 @@ services:
   app-backoffice:
     scale: 1
     start_on_create: true
-  LoadBalencer:
+  loadBalencer:
     scale: 1
     start_on_create: true
     lb_config:

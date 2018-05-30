@@ -76,12 +76,12 @@ jobs:
           rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --upgrade --pull -d app-sails
 
       - run:
-          rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --confirm-upgrade
+          rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --confirm-upgrade -d app-sails
       
       - run:
           when: on_fail
           command: 
-              rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --rollback
+              rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --rollback -d app-sails
 
 
 workflows:
