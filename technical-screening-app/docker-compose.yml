@@ -1,7 +1,7 @@
 version: '2'
 services:
   app-sails:
-    image: wadman/circleci-demo-bo:latest
+    image: wadman/circleci-demo:latest
     stdin_open: true
     tty: true
     links:
@@ -10,6 +10,8 @@ services:
     - node
     - app.js
     - --prod
+    labels:
+      io.rancher.container.pull_image: always
   db-mongo:
     image: mongo
     stdin_open: true
