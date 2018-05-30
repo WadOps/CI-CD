@@ -6,9 +6,9 @@ version: 2
 
 jobs:
   build:
-    branches:
-      only:
-        - develop
+    # branches:
+    #   only:
+    #     - develop #not compatible with workflows
         
     docker:
       # specify the version you desire here
@@ -88,7 +88,11 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              only:
+                - develop
       - deploy:
           requires:
             - build
