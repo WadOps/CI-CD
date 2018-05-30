@@ -73,15 +73,15 @@ jobs:
       - run: 
           rancher-compose --url $RANCHER_URL --access-key $RANCHER_ACCESS_KEY --secret-key $RANCHER_SECRET_KEY
       - run:
-          rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --upgrade app-sails --pull -d 
+          rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --upgrade --pull -d app-sails
 
       - run:
-          rancher-compose up --confirm-upgrade
+          rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --confirm-upgrade
       
       - run:
           when: on_fail
           command: 
-              rancher-compose up --rollback
+              rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --rollback
 
 
 workflows:
