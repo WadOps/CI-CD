@@ -5,12 +5,18 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+if (process.env.NODE_ENV === 'production') {
+    baseURL = 'http://tech.quiz.sdrm.me:8081'
+} else {
+    baseURL = 'http://localhost:8081'
+}
+
 module.exports = {
     
     generate(req,res) {
         var moment = require('moment')
         var jwt = require('jsonwebtoken')
-        baseurl = "localhost:8081"
+        baseurl = baseURL
         testid = req.body.id
         mail = req.body.email
         expdate = req.body.expdate
